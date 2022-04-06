@@ -1,0 +1,57 @@
+@import url(../vendor/normalize.css);
+
+@import url(../blocks/page/page.css);
+
+@import url(../blocks/header/header.css);
+@import url(../blocks/header/__logo/header__logo.css);
+
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__info/profile__info.css);
+@import url(../blocks/profile/__title/profile__title.css);
+@import url(../blocks/profile/__subtitle/profile__subtitle.css);
+@import url(../blocks/profile/__edit/profile__edit.css);
+@import url(../blocks/profile/__add/profile__add.css);
+
+@import url(../blocks/cards/cards.css);
+
+@import url(../blocks/card/card.css);
+@import url(../blocks/card/__image/card__image.css);
+@import url(../blocks/card/__title/card__title.css);
+@import url(../blocks/card/__like/card__like.css);
+@import url(../blocks/card/__like/_active/card__like_active.css);
+
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__copyright/footer__copyright.css);
+
+@import url(../blocks/edit/edit.css);
+@import url(../blocks/edit/__close/edit__close.css);
+@import url(../blocks/edit/__discription/edit__discription.css);
+@import url(../blocks/edit/__name/edit__name.css);
+@import url(../blocks/edit/__save/edit__save.css);
+@import url(../blocks/edit/__title/edit__title.css);
+@import url(../blocks/edit/__input/edit__input.css);
+/*
+ TODO: Не те шрифты стоят. 
+*/
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter/Inter-Regular.ttf') format("truetype"),
+  url('../fonts/Inter/Inter-Bold.ttf') format("truetype"),
+  url('../fonts/Inter/Inter-Black.ttf') format("truetype");
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto/Roboto-Regular.ttf') format("truetype"),
+  url('../fonts/Roboto/Roboto-Bold.ttf') format("truetype"),
+  url('../fonts/Roboto/Roboto-Black.ttf') format("truetype");
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat/Montserrat-Regular.ttf') format("truetype"),
+  url('../fonts/Montserrat/Montserrat-Bold.ttf') format("truetype"),
+  url('../fonts/Montserrat/Montserrat-Black.ttf') format("truetype");
+}

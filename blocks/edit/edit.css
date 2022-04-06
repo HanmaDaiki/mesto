@@ -1,0 +1,13 @@
+.edit {
+  visibility: hidden;
+  position: absolute;
+  z-index: 50;
+  top: 195px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  background-color: #fff;
+  width: 430px;
+  height: 330px;
+  padding: 34px 36px 0;
+}

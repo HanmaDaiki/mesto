@@ -1,0 +1,7 @@
+.edit__name {
+  outline:  none;
+  border: none;
+}
+.edit__name::placeholder{
+  content: 'ПРивет';
+}
