@@ -1,7 +1,18 @@
 .edit__name {
-  outline:  none;
-  border: none;
+  border-bottom: 1px solid #000;
+  margin: 54px auto 0;
+  width: 358px;
+  height: 27px;
+  color: #000;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
 }
-.edit__name::placeholder{
-  content: 'ПРивет';
+
+@media screen and (max-width: 900px) {
+  .edit__name {
+    margin: 75px auto 0;
+    width: 238px;
+  }
 }

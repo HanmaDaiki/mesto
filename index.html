@@ -8,24 +8,24 @@
   <title>Mesto</title>
 </head>
 <body class="page">
-  <header class="header">
-    <a href="#" ><div class="header__logo"></div></a>
-  </header>
-
   <form action="" class="edit">
     <h2 class="edit__title">Редактировать профиль</h2>
 
-    <div class="edit__input">
-      <input class="edit__name" type="text">
+    <div class="edit__name">
+      <input value="" class="edit__input" type="text">
     </div>
     
-    <div class="edit__input">
-      <input class="edit__discription" type="text">
+    <div class="edit__discription">
+      <input value="" class="edit__input" type="text">
     </div>
     
     <button class="edit__save">Сохранить</button>
     <button class="edit__close"></button>
-  </form>
+    </form>
+
+  <header class="header">
+    <a href="#" ><div class="header__logo"></div></a>
+  </header>
 
   <section class="profile">
     <img 
@@ -34,12 +34,11 @@
       alt="Фото пользователя"
     >
     <div class="profile__info">
-      <h1 class="profile__title">Жак-Ив Кусто</h1>
+      <h1 class="profile__name">Жак-Ив Кусто</h1>
       <button 
         class="profile__edit"
-        onclick="OpenEditors()"  
       ></button>
-      <p class="profile__subtitle">Исследователь океана</p>
+      <p class="profile__discription">Исследователь океана</p>
     </div>
     <button class="profile__add"></button>
   </section>

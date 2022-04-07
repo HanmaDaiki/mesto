@@ -1,3 +1,15 @@
 .edit__close {
-  
+  width: 32px;
+  height: 32px;
+  background-image: url(../../../image/icon-close.svg);
+  position: absolute;
+  background-size: cover;
+  right: -40px;
+  top: -40px;
+  border: none;
+  background-color: rgba(0,0,0,0)
+}
+
+.edit__close:hover {
+  opacity: 0.6;
 }

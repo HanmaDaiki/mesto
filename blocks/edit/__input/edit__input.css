@@ -1,5 +1,14 @@
 .edit__input {
-  border-bottom: 1px solid #000;
-  width: 358px;
-  height: 27px;
+  border: none;
+  outline: none;
+  padding: 0;
+}
+
+
+.edit__input::placeholder {
+  color: #000;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
 }

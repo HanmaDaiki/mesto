@@ -1,6 +1,6 @@
 .edit {
   visibility: hidden;
-  position: absolute;
+  position: fixed;
   z-index: 50;
   top: 195px;
   left: 50%;
@@ -9,5 +9,12 @@
   background-color: #fff;
   width: 430px;
   height: 330px;
-  padding: 34px 36px 0;
+}
+
+@media screen and (max-width: 900px) {
+  .edit {
+    top: 123px;
+    width: 282px;
+    height: 322px;
+  }
 }
