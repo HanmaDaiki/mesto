@@ -33,8 +33,8 @@ buttonCloseEdit.addEventListener('click', (e) => {
 
 buttonSaveEdit.addEventListener('click', (e) => {
   e.preventDefault();
-  profileName.textContent = inputName.querySelector('.edit__input').value;
-  profileDiscription.textContent = inputDiscription.querySelector('.edit__input').value;
+  if(inputName.querySelector('.edit__input').value !== '') profileName.textContent = inputName.querySelector('.edit__input').value;
+  if(inputDiscription.querySelector('.edit__input').value !== '') profileDiscription.textContent = inputDiscription.querySelector('.edit__input').value;
   inputName.querySelector('.edit__input').placeholder = profileName.textContent;
   inputDiscription.querySelector('.edit__input').placeholder = profileDiscription.textContent;
   inputName.querySelector('.edit__input').value = '';
