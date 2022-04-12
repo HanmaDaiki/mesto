@@ -1,6 +1,6 @@
 .edit__name {
   border-bottom: 1px solid #000;
-  margin: 54px auto 0;
+  margin: 54px 0 0;
   width: 358px;
   height: 27px;
   color: #000;
@@ -12,7 +12,7 @@
 
 @media screen and (max-width: 900px) {
   .edit__name {
-    margin: 75px auto 0;
+    margin: 75px 0 0;
     width: 238px;
   }
 }

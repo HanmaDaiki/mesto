@@ -1,18 +1,18 @@
 .edit {
-  position: fixed;
-  z-index: 50;
-  top: 195px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   border-radius: 10px;
   background-color: #fff;
   width: 430px;
   height: 330px;
+  margin: 195px auto 0;
 }
 
 @media screen and (max-width: 900px) {
   .edit {
-    top: 123px;
+    margin: 123px auto 0;
     width: 282px;
     height: 322px;
   }
