@@ -23,47 +23,48 @@
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <button 
           class="profile__edit"
+          type="button"
         ></button>
         <p class="profile__discription">Исследователь океана</p>
       </div>
-      <button class="profile__add"></button>
+      <button class="profile__add" type="button"></button>
     </section>
   
     <section class="cards">
       <article class="card">
         <img class="card__image" src="./image/karachaevsk.jpg" alt="Фото сделанное в Карачаевске">
         <h2 class="card__title">Карачаевск-Черкеск</h2>
-        <button class="card__like"></button>
+        <button class="card__like" type="button"></button>
       </article>
   
       <article class="card">
         <img class="card__image" src="./image/elbrus.jpg" alt="Фото Эльбруса издали">
         <h2 class="card__title">Гора Эльбрус</h2>
-        <button class="card__like"></button>
+        <button class="card__like" type="button"></button>
       </article>
   
       <article class="card">
         <img class="card__image" src="./image/dombay.jpg" alt="Фото сделанное в Домбае">
         <h2 class="card__title">Домбай</h2>
-        <button class="card__like"></button>
+        <button class="card__like" type="button"></button>
       </article>
   
       <article class="card">
         <img class="card__image" src="./image/elbrus.jpg" alt="Фото Эльбруса издали">
         <h2 class="card__title">Гора Эльбрус</h2>
-        <button class="card__like"></button>
+        <button class="card__like" type="button"></button>
       </article>
   
       <article class="card">
         <img class="card__image" src="./image/dombay.jpg" alt="Фото сделанное в Домбае">
         <h2 class="card__title">Домбай</h2>
-        <button class="card__like"></button>
+        <button class="card__like" type="button"></button>
       </article>
   
       <article class="card">
         <img class="card__image" src="./image/karachaevsk.jpg" alt="Фото сделанное в Карачаевске">
         <h2 class="card__title">Карачаевск</h2>
-        <button class="card__like"></button>
+        <button class="card__like" type="button"></button>
       </article>
     </section>
   </main>
@@ -76,13 +77,13 @@
 
   <div class="popup">
     <div class="popup__container">
-      <form class="edit">
-        <button class="edit__close"></button>
+      <form class="edit" name="edit-profile">
+        <button class="edit__close" type="button"></button>
         <h2 class="edit__title">Редактировать профиль</h2>
   
-        <input value="" class="edit__name" required type="text">
+        <input value="" class="edit__name" required type="text" name="input-name">
   
-        <input value="" class="edit__discription" required type="text">
+        <input value="" class="edit__discription" required type="text" name="input-discription">
         
         <button class="edit__save" type="submit">Сохранить</button>
       </form>
@@ -90,6 +91,6 @@
   </div>
 
 
-  <script src="./pages/index.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 </html>
