@@ -1,43 +1,33 @@
-let page = document.querySelector('.page');
+const page = document.querySelector('.page');
+const cards = page.querySelector('.cards');
+const card = cards.querySelector('.card');
+const popup = page.querySelector('.popup')
+const edit = page.querySelector('.edit');
 
-let cards = page.querySelector('.cards');
-let card = cards.querySelector('.card');
-let buttonLike = card.querySelector('.card__like');
+const profileName = page.querySelector('.profile__name');
+const profileDiscription = page.querySelector('.profile__discription');
+const buttonOpenEdit = page.querySelector('.profile__edit');
+const buttonCloseEdit = edit.querySelector('.edit__close');
+const inputName = edit.querySelector('.edit__name');
+const inputDiscription = edit.querySelector('.edit__discription');
 
-let popup = page.querySelector('.popup')
-let edit = page.querySelector('.edit');
-let buttonOpenEdit = page.querySelector('.profile__edit');
-let buttonCloseEdit = edit.querySelector('.edit__close');
-let buttonSaveEdit = edit.querySelector('.edit__save');
-
-let profileName = page.querySelector('.profile__name');
-let profileDiscription = page.querySelector('.profile__discription');
-let inputName = edit.querySelector('.edit__name');
-let inputDiscription = edit.querySelector('.edit__discription');
-
-cards.addEventListener('click', (e) => {
-  if(e.target.classList.contains('card__like')) e.target.classList.toggle('card__like_active');
-});
-
-buttonOpenEdit.addEventListener('click', (e) => {
-  e.preventDefault();
+const openEdit = () => {
   popup.classList.add('popup_active');
-  inputName.querySelector('.edit__input').placeholder = profileName.textContent;
-  inputDiscription.querySelector('.edit__input').placeholder = profileDiscription.textContent;
-});
+  inputName.value = profileName.textContent;
+  inputDiscription.value = profileDiscription.textContent;
+};
 
-buttonCloseEdit.addEventListener('click', (e) => {
-  e.preventDefault();
-  popup.classList.remove('popup_active');
-});
+const closeEdit = () => {
+  popup.classList.remove('popup_active');  
+};
 
-buttonSaveEdit.addEventListener('click', (e) => {
+const saveEdit = (e) => {
   e.preventDefault();
-  if(inputName.querySelector('.edit__input').value !== '') profileName.textContent = inputName.querySelector('.edit__input').value;
-  if(inputDiscription.querySelector('.edit__input').value !== '') profileDiscription.textContent = inputDiscription.querySelector('.edit__input').value;
-  inputName.querySelector('.edit__input').placeholder = profileName.textContent;
-  inputDiscription.querySelector('.edit__input').placeholder = profileDiscription.textContent;
-  inputName.querySelector('.edit__input').value = '';
-  inputDiscription.querySelector('.edit__input').value = '';
+  profileName.textContent = inputName.value;
+  profileDiscription.textContent = inputDiscription.value;
   popup.classList.remove('popup_active');
-});
+}
+
+buttonOpenEdit.addEventListener('click', openEdit);
+buttonCloseEdit.addEventListener('click', closeEdit);
+edit.addEventListener('submit', saveEdit);
