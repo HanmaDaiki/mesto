@@ -28,6 +28,7 @@
 
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_active/popup_active.css);
+@import url(../blocks/popup/__container/popup__container.css);
 
 @import url(../blocks/edit/edit.css);
 @import url(../blocks/edit/__close/edit__close.css);

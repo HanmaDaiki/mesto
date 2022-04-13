@@ -1,15 +1,9 @@
 .edit {
-  position: relative;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  border-radius: 10px;
-  background-color: #fff;
-  width: 430px;
+  padding: 34px 36px 37px;
 }
 
 @media screen and (max-width: 900px) {
   .edit {
-    width: 282px;
+    padding: 25px 22px;
   }
 }
