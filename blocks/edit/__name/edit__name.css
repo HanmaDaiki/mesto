@@ -1,8 +1,20 @@
 .edit__name {
+  border-top: none;
+  border-left: none;
+  border-right: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  outline: none;
   margin: 54px 0 0;
   width: 358px;
   height: 27px;
+  color: #000;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.edit__name::placeholder {
   color: #000;
   font-style: normal;
   font-weight: 400;
