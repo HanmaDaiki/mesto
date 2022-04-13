@@ -69,26 +69,24 @@
   </main>
 
   <footer class="footer">
-    <h2 class="footer__copyright">
+    <p class="footer__copyright">
       &copy; 2022 Mesto Russia
-    </h2>
+    </p>
   </footer>
 
   <div class="popup">
-    <form class="edit">
-      <button class="edit__close"></button>
-      <h2 class="edit__title">Редактировать профиль</h2>
-
-      <div class="edit__name">
-        <input value="" class="edit__input" type="text">
-      </div>
-      
-      <div class="edit__discription">
-        <input value="" class="edit__input" type="text">
-      </div>
-      
-      <button class="edit__save">Сохранить</button>
-    </form>
+    <div class="popup__container">
+      <form class="edit">
+        <button class="edit__close"></button>
+        <h2 class="edit__title">Редактировать профиль</h2>
+  
+        <input value="" class="edit__name" required type="text">
+  
+        <input value="" class="edit__discription" required type="text">
+        
+        <button class="edit__save" type="submit">Сохранить</button>
+      </form>
+    </div>
   </div>
 
 
