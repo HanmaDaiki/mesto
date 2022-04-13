@@ -1,5 +1,4 @@
 .profile {
-  height: 120px;
   margin-top: 40px;
   display: flex;
   justify-content: start;
@@ -10,7 +9,6 @@
   .profile {
     flex-direction: column;
     margin: 42px auto 0;
-    height: 286px;
     width: 282px;
   }
 }
