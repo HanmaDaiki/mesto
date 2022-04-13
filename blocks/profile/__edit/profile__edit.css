@@ -1,4 +1,5 @@
 .profile__edit {
+  cursor: pointer;
   padding: 0;
   margin: 13px 0 0 18px;
   height: 24px;
