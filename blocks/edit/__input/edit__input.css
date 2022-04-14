@@ -1,11 +1,11 @@
-.edit__discription {
+.edit__input {
   border-top: none;
   border-left: none;
   border-right: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   outline: none;
   padding: 0;
-  margin: 30px 0 0;
+  margin: 54px 0 0;
   width: 358px;
   height: 27px;
   color: #000;
@@ -15,7 +15,11 @@
   line-height: 17px;
 }
 
-.edit__discription::placeholder {
+.edit__input:last-of-type {
+  margin: 30px 0 0;
+}
+
+.edit__input::placeholder {
   color: #000;
   font-style: normal;
   font-weight: 400;
@@ -24,7 +28,8 @@
 }
 
 @media screen and (max-width: 900px) {
-  .edit__discription {
+  .edit__input {
+    margin: 75px 0 0;
     width: 238px;
   }
 }
