@@ -8,8 +8,8 @@ const profileName = page.querySelector('.profile__name');
 const profileDiscription = page.querySelector('.profile__discription');
 const buttonOpenEdit = page.querySelector('.profile__edit');
 const buttonCloseEdit = edit.querySelector('.edit__close');
-const inputName = edit.querySelector('.edit__name');
-const inputDiscription = edit.querySelector('.edit__discription');
+const inputName = edit.querySelector('.edit__input_type_name');
+const inputDiscription = edit.querySelector('.edit__input_type_discription');
 
 const openEdit = () => {
   popup.classList.add('popup_active');
