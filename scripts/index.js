@@ -1,7 +1,6 @@
 const page = document.querySelector('.page');
 const cards = page.querySelector('.cards');
-const card = cards.querySelector('.card');
-const popup = page.querySelector('.popup')
+const popup = page.querySelector('.popup');
 const edit = page.querySelector('.edit');
 
 const profileName = page.querySelector('.profile__name');
@@ -42,7 +41,7 @@ const renderCards = (items) => {
   items.forEach((item) => {
     const card = document.createElement('article');
     card.classList.add('card');
-    
+
     const cardImage = document.createElement('img');
     cardImage.classList.add('card__image');
     cardImage.src = item.link;
@@ -51,7 +50,7 @@ const renderCards = (items) => {
     const cardTitle = document.createElement('h2');
     cardTitle.classList.add('card__title');
     cardTitle.textContent = item.name;
-    
+
     const cardLike = document.createElement('button');
     cardLike.classList.add('card__like');
     cardLike.type = 'button';
@@ -72,7 +71,7 @@ const openEdit = () => {
 };
 
 const closeEdit = () => {
-  popup.classList.remove('popup_active');  
+  popup.classList.remove('popup_active');
 };
 
 const saveEdit = (e) => {

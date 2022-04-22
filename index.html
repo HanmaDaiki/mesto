@@ -1,59 +1,93 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
-  <title>Mesto</title>
-</head>
-<body class="page">
-  <header class="header">
-    <div class="header__logo"></div>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./pages/index.css" />
+    <title>Mesto</title>
+  </head>
+  <body class="page">
+    <header class="header">
+      <div class="header__logo"></div>
+    </header>
 
-  <main class="main">  
-    <section class="profile">
-      <img 
-        class="profile__avatar" 
-        src="./image/avatar.jpg" 
-        alt="Фото пользователя"
-      >
-      <div class="profile__info">
-        <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <button 
-          class="profile__edit"
-          type="button"
-        ></button>
-        <p class="profile__discription">Исследователь океана</p>
+    <main class="main">
+      <section class="profile">
+        <img
+          class="profile__avatar"
+          src="./image/avatar.jpg"
+          alt="Фото пользователя"
+        />
+        <div class="profile__info">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <button class="profile__edit" type="button"></button>
+          <p class="profile__discription">Исследователь океана</p>
+        </div>
+        <button class="profile__add" type="button"></button>
+      </section>
+
+      <section class="cards"></section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
+    </footer>
+
+    <div class="popup popup_type_editor">
+      <div class="popup__container">
+        <button class="popup__close" type="button"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="popup__form" name="edit-profile">
+          <input
+            value=""
+            class="popup__input popup__input_type_name"
+            required
+            type="text"
+            name="input-name"
+          />
+
+          <input
+            value=""
+            class="popup__input popup__input_type_discription"
+            required
+            type="text"
+            name="input-discription"
+          />
+
+          <button class="popup__save" type="submit">Сохранить</button>
+        </form>
       </div>
-      <button class="profile__add" type="button"></button>
-    </section>
-  
-    <section class="cards"></section>
-  </main>
-
-  <footer class="footer">
-    <p class="footer__copyright">
-      &copy; 2022 Mesto Russia
-    </p>
-  </footer>
-
-  <div class="popup">
-    <div class="popup__container">
-      <form class="edit" name="edit-profile">
-        <button class="edit__close" type="button"></button>
-        <h2 class="edit__title">Редактировать профиль</h2>
-  
-        <input value="" class="edit__input edit__input_type_name" required type="text" name="input-name">
-  
-        <input value="" class="edit__input edit__input_type_discription" required type="text" name="input-discription">
-        
-        <button class="edit__save" type="submit">Сохранить</button>
-      </form>
     </div>
-  </div>
 
-  <script src="./scripts/index.js"></script>
-</body>
+    <div class="popup popup_type_add-card">
+      <div class="popup__container">
+        <button class="popup__close" type="button"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__form" name="edit-profile">
+          <input
+            placeholder="Название"
+            value=""
+            class="popup__input popup__input_type_name"
+            required
+            type="text"
+            name="input-name"
+          />
+
+          <input
+            placeholder="Ссылка на картинку"
+            value=""
+            class="popup__input popup__input_type_discription"
+            required
+            type="text"
+            name="input-discription"
+          />
+
+          <button class="popup__save" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="./scripts/index.js"></script>
+  </body>
 </html>

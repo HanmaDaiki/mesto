@@ -1,9 +1,0 @@
-.edit {
-  padding: 34px 36px 37px;
-}
-
-@media screen and (max-width: 900px) {
-  .edit {
-    padding: 25px 22px;
-  }
-}
