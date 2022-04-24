@@ -1,4 +1,4 @@
-.popup__container {
+.popup-add-card__container {
   position: relative;
   border-radius: 10px;
   background-color: #fff;
@@ -6,7 +6,7 @@
 }
 
 @media screen and (max-width: 900px) {
-  .popup__container {
+  .popup-add-card__container {
     width: 282px;
   }
 }

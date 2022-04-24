@@ -1,157 +1,118 @@
 const page = document.querySelector('.page');
-const cards = page.querySelector('.cards');
-const popup = page.querySelector('.popup');
-const popupForm = popup.querySelector('.popup__form');
-const popupImage = page.querySelector('.popup-image');
-const popupImageContainer = page.querySelector('.popup-image__container');
+const blockCards = page.querySelector('.cards');
+
+const arrayCards = initialCards;
+
 const profileName = page.querySelector('.profile__name');
 const profileDiscription = page.querySelector('.profile__discription');
-const buttonAddCard = page.querySelector('.profile__add');
+const buttonOpenAddCard = page.querySelector('.profile__add');
 const buttonOpenEdit = page.querySelector('.profile__edit');
-const buttonClosePopup = popup.querySelector('.popup__close');
-const popupTitle = popup.querySelector('.popup__title');
-const inputName = popupForm.querySelector('.popup__input_type_name');
-const inputDiscription = popupForm.querySelector('.popup__input_type_discription');
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+const popupEdit = page.querySelector('.popup-edit');
+const popupEditForm = popupEdit.querySelector('.popup-edit__form');
+const popupEditInputName = popupEditForm.querySelector('.popup-edit__input_type_name');
+const popupEditInputDiscription = popupEditForm.querySelector('.popup-edit__input_type_discription');
+const buttonCloseEditPopup = popupEdit.querySelector('.popup-edit__close');
 
-const deleteCard = (e) => {
-  if (e.target.classList.contains('card__delete')) {
-    initialCards.splice(Number(e.target.id), 1)
-    renderCards(initialCards);
-  }
-}
+const popupAddCard = page.querySelector('.popup-add-card');
+const popupAddCardInputNameCard = popupAddCard.querySelector('.popup-add-card__input_type_name-card');
+const popupAddCardInputLinkCard = popupAddCard.querySelector('.popup-add-crad__input_type_link-card')
+const popupAddCardForm = popupAddCard.querySelector('.popup-add-card__form');
+const buttonCloseAddCardPopup = popupAddCard.querySelector('.popup-add-card__close');
 
-const closePopupImage = () => {
-  popupImage.classList.remove('popup-image_active');
-  popupImageContainer.innerHTML = '';
+const popupImage = page.querySelector('.popup-image');
+const popupImageImage = popupImage.querySelector('.popup-image__image');
+const popupImageTitle = popupImage.querySelector('.popup-image__title');
+const buttonCloseImagePopup = popupImage.querySelector('.popup-image__close');
+
+const openEditPopup = () => {
+  popupEdit.classList.add('popup-edit_active');
+  popupEditInputName.value = profileName.textContent;
+  popupEditInputDiscription.value = profileDiscription.textContent;
 };
 
-const renderCards = (items) => {
-  cards.innerHTML = '';
-  items.forEach((item, index) => {
-    const card = document.createElement('article');
-    card.classList.add('card');
+const closeEditPopup = () => {
+  popupEdit.classList.remove('popup-edit_active');
+};
 
-    const cardImage = document.createElement('img');
-    cardImage.classList.add('card__image');
-    cardImage.src = item.link;
-    cardImage.alt = `Фото сделанное в ${item.name}`;
+const saveEditPopup = (e) => {
+  e.preventDefault();
+  profileName.textContent = popupEditInputName.value;
+  profileDiscription.textContent = popupEditInputDiscription.value;
+  closeEditPopup();
+};
 
-    const cardTitle = document.createElement('h2');
-    cardTitle.classList.add('card__title');
-    cardTitle.textContent = item.name;
+const openAddCardPopup = () => {
+  popupAddCard.classList.add('popup-add-card_active');
+};
 
-    const cardLike = document.createElement('button');
-    cardLike.classList.add('card__like');
-    cardLike.type = 'button';
+const closeAddCardPopup = () => {
+  popupAddCard.classList.remove('popup-add-card_active');
+};
 
-    const cardDel = document.createElement('button');
-    cardDel.classList.add('card__delete');
-    cardDel.type = 'button';
-    cardDel.id = index;
+const saveAddCardPopup = (e) => {
+  e.preventDefault();
+  arrayCards.unshift({
+    name: popupAddCardInputNameCard.value,
+    link: popupAddCardInputLinkCard.value
+  });
+  renderCards(arrayCards);
+  closeAddCardPopup();
+};
 
-    card.append(cardImage, cardTitle, cardLike, cardDel);
-    cards.append(card);
+const openImagePopup = (e) => {
+  popupImage.classList.add('popup-image_active');
+
+  popupImageImage.src = e.target.src;
+  popupImageImage.alt = e.target.alt;
+
+  popupImageTitle.textContent = e.target.alt.replace('Фото сделанное в ', '');
+}
+const closeImagePopup = () => {
+  popupImage.classList.remove('popup-image_active');
+}
+
+const cereateCard = (title, link) => {
+  const cardTemplate = page.querySelector('#card-template').content;
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+  const imageCard = cardElement.querySelector('.card__image');
+  const titleCard = cardElement.querySelector('.card__title');
+  const buttonCardDelete = cardElement.querySelector('.card__delete');
+  const buttonCardLike = cardElement.querySelector('.card__like');
+
+  imageCard.src = link;
+  imageCard.alt = `Фото сделанное в ${title}`;
+  imageCard.addEventListener('click', openImagePopup);
+  titleCard.textContent = title;
+  buttonCardDelete.addEventListener('click', deleteCard);
+  buttonCardLike.addEventListener('click', likeCard);
+
+  return cardElement;
+};
+
+const renderCards = (array) => {
+  blockCards.innerHTML = '';
+  array.forEach(element => {
+    blockCards.append(cereateCard(element.name, element.link));
   });
 };
 
-const like = (e) => {
-  if (e.target.classList.contains('card__like')) e.target.classList.toggle('card__like_active')
+const deleteCard = (e) => {
+  e.target.closest('.card').remove();
 };
 
-const openImage = (e) => {
-  if (e.target.classList.contains('card__image')) {
-    popupImage.classList.add('popup-image_active');
-
-    const image = document.createElement('img');
-    image.classList.add('popup-image__image');
-    image.src = e.target.src;
-    image.alt = e.target.alt;
-
-    const button = document.createElement('button');
-    button.classList.add('popup-image__close');
-    button.type = 'button';
-
-    const title = document.createElement('h2');
-    title.classList.add('popup-image__title');
-    title.textContent = e.target.alt.replace('Фото сделанное в ', '');
-
-    button.addEventListener('click', closePopupImage);
-
-    popupImageContainer.append(button, image, title);
-  };
+const likeCard = (e) => {
+  e.target.classList.toggle('card__like_active');
 };
 
-const openAddCard = () => {
-  popup.classList.add('popup_active');
-  popupTitle.textContent = 'Новое место';
-  inputName.value = '';
-  inputDiscription.value = '';
-  inputName.placeholder = 'Название';
-  inputDiscription.placeholder = 'Ссылка на картинку';
-};
+renderCards(arrayCards);
 
-const openEdit = () => {
-  popup.classList.add('popup_active');
-  popupTitle.textContent = 'Редактировать профиль';
-  inputName.value = profileName.textContent;
-  inputDiscription.value = profileDiscription.textContent;
-};
+buttonOpenEdit.addEventListener('click', openEditPopup);
+buttonCloseEditPopup.addEventListener('click', closeEditPopup);
+popupEditForm.addEventListener('submit', saveEditPopup);
 
-const closePopup = () => {
-  popup.classList.remove('popup_active');
-};
+buttonOpenAddCard.addEventListener('click', openAddCardPopup);
+buttonCloseAddCardPopup.addEventListener('click', closeAddCardPopup);
+popupAddCardForm.addEventListener('submit', saveAddCardPopup);
 
-const saveForm = (e) => {
-  e.preventDefault();
-
-  if (popupTitle.textContent === 'Новое место') {
-    initialCards.unshift({
-      name: inputName.value,
-      link: inputDiscription.value
-    });
-    renderCards(initialCards);
-  };
-
-  if (popupTitle.textContent === 'Редактировать профиль') {
-    profileName.textContent = inputName.value;
-    profileDiscription.textContent = inputDiscription.value;
-  };
-
-  popup.classList.remove('popup_active');
-};
-
-renderCards(initialCards);
-buttonAddCard.addEventListener('click', openAddCard);
-buttonOpenEdit.addEventListener('click', openEdit);
-buttonClosePopup.addEventListener('click', closePopup);
-popupForm.addEventListener('submit', saveForm);
-cards.addEventListener('click', like);
-cards.addEventListener('click', openImage);
-cards.addEventListener('click', deleteCard);
+buttonCloseImagePopup.addEventListener('click', closeImagePopup);

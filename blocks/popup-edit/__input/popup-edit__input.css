@@ -1,4 +1,4 @@
-.popup__input {
+.popup-edit__input {
   border-top: none;
   border-left: none;
   border-right: none;
@@ -15,11 +15,11 @@
   line-height: 17px;
 }
 
-.popup__input:last-of-type {
+.popup-edit__input:last-of-type {
   margin: 30px 0 0;
 }
 
-.popup__input::placeholder {
+.popup-edit__input::placeholder {
   color: #c4c4c4;
   font-style: normal;
   font-weight: 400;
@@ -28,7 +28,7 @@
 }
 
 @media screen and (max-width: 900px) {
-  .popup__input {
+  .popup-edit__input {
     margin: 75px 0 0;
     width: 238px;
   }
