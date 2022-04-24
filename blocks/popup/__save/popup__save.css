@@ -1,4 +1,4 @@
-.popup-add-card__save {
+.popup__save {
   cursor: pointer;
   width: 356px;
   margin: 48px 0 0;
@@ -14,12 +14,12 @@
   color: #fff;
 }
 
-.popup-add-card__save:hover {
+.popup__save:hover {
   opacity:  0.8;
 }
 
 @media screen and (max-width: 900px) {
-  .popup-add-card__save {
+  .popup__save {
     font-size: 14px;
     line-height: 17px;
     width: 238px;

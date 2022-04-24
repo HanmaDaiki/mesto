@@ -1,4 +1,4 @@
-.popup-edit__close {
+.popup__close {
   cursor: pointer;
   position: absolute;
   top: -40px;
@@ -11,12 +11,12 @@
   background-color: rgba(0,0,0,0);
 }
 
-.popup-edit__close:hover {
+.popup__close:hover {
   opacity: 0.6;
 }
 
 @media screen and (max-width: 900px) {
-  .popup-edit__close {
+  .popup__close {
     width: 20px;
     height: 20px;
     right: 0;
