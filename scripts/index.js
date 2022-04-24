@@ -16,7 +16,7 @@ const buttonCloseEditPopup = popupEdit.querySelector('.popup-edit__close');
 
 const popupAddCard = page.querySelector('.popup-add-card');
 const popupAddCardInputNameCard = popupAddCard.querySelector('.popup-add-card__input_type_name-card');
-const popupAddCardInputLinkCard = popupAddCard.querySelector('.popup-add-crad__input_type_link-card')
+const popupAddCardInputLinkCard = popupAddCard.querySelector('.popup-add-card__input_type_link-card')
 const popupAddCardForm = popupAddCard.querySelector('.popup-add-card__form');
 const buttonCloseAddCardPopup = popupAddCard.querySelector('.popup-add-card__close');
 
