@@ -5,6 +5,7 @@ const cardTemplate = page.querySelector('#card-template').content;
 const arrayCards = initialCards;
 
 const popupInputs = page.querySelectorAll('.popup__input');
+const popups = page.querySelectorAll('.popup');
 
 const profileName = page.querySelector('.profile__name');
 const profileDiscription = page.querySelector('.profile__discription');
@@ -95,10 +96,27 @@ const toggleButtonState = (inputList, buttonElement, popupButtonSaveInactive) =>
 
 const openPopup = (popup) => {
   popup.classList.add('popup_active');
+  pressEsc(true);
 };
 
 const closePopup = (popup) => {
   popup.classList.remove('popup_active');
+  pressEsc(false);
+};
+
+const closePopupEsc = (e) => {
+  popups.forEach(popup => {
+    if (popup.classList.contains('popup_active') && e.key === 'Escape') closePopup(popup);
+  });
+};
+
+const pressEsc = (toggle) => {
+  if (toggle) {
+    document.addEventListener('keydown', closePopupEsc)
+  }
+  if (!toggle) {
+    document.removeEventListener('keydown', closePopupEsc);
+  }
 };
 
 const openEditPopup = () => {
@@ -128,11 +146,7 @@ const closeAddCardPopup = () => {
 
 const saveAddCardPopup = (e) => {
   e.preventDefault();
-  arrayCards.unshift({
-    name: popupAddCardInputNameCard.value,
-    link: popupAddCardInputLinkCard.value
-  });
-  blockCards.prepend(cereateCard(arrayCards[0].name, arrayCards[0].link));
+  blockCards.prepend(cereateCard(popupAddCardInputNameCard.value, popupAddCardInputLinkCard.value));
   closeAddCardPopup();
 };
 
@@ -180,40 +194,19 @@ const likeCard = (e) => {
   e.target.classList.toggle('card__like_active');
 };
 
-const closePopupEscEdit = (e) => {
-  if (e.key === 'Escape') {
-    closePopup(popupEdit);
-  }
-}
-
-const closePopupEscAddCard = (e) => {
-  if (e.key === 'Escape') {
-    closePopup(popupAddCard);
-  }
-}
-
-const closePopupEscImage = (e) => {
-  if (e.key === 'Escape') {
-    closePopup(popupImage);
-  }
-}
-
 renderCards(arrayCards);
 
 buttonOpenEdit.addEventListener('click', openEditPopup);
 popupEditOverlay.addEventListener('click', closeEditPopup);
-document.addEventListener('keydown', closePopupEscEdit);
 buttonCloseEditPopup.addEventListener('click', closeEditPopup);
 popupEditForm.addEventListener('submit', saveEditPopup);
 
 buttonOpenAddCard.addEventListener('click', openAddCardPopup);
 popupAddCardOverlay.addEventListener('click', closeAddCardPopup);
-document.addEventListener('keydown', closePopupEscAddCard);
 buttonCloseAddCardPopup.addEventListener('click', closeAddCardPopup);
 popupAddCardForm.addEventListener('submit', saveAddCardPopup);
 
 popupImageOverlay.addEventListener('click', closeImagePopup);
-document.addEventListener('keydown', closePopupEscImage);
 buttonCloseImagePopup.addEventListener('click', closeImagePopup);
 
 enableValidation(validate);
