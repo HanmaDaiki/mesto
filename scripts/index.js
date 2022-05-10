@@ -5,7 +5,6 @@ const cardTemplate = page.querySelector('#card-template').content;
 const arrayCards = initialCards;
 
 const popupInputs = page.querySelectorAll('.popup__input');
-const popups = page.querySelectorAll('.popup');
 
 const profileName = page.querySelector('.profile__name');
 const profileDiscription = page.querySelector('.profile__discription');
@@ -37,27 +36,19 @@ const buttonCloseImagePopup = popupImage.querySelector('.popup__close');
 
 const openPopup = (popup) => {
   popup.classList.add('popup_active');
-  pressEsc(true);
+  document.addEventListener('keydown', closePopupEsc);
 };
 
 const closePopup = (popup) => {
   popup.classList.remove('popup_active');
-  pressEsc(false);
+  document.removeEventListener('keydown', closePopupEsc);
 };
 
 const closePopupEsc = (e) => {
-  popups.forEach(popup => {
-    if (popup.classList.contains('popup_active') && e.key === 'Escape') closePopup(popup);
-  });
-};
-
-const pressEsc = (toggle) => {
-  if (toggle) {
-    document.addEventListener('keydown', closePopupEsc)
-  }
-  if (!toggle) {
-    document.removeEventListener('keydown', closePopupEsc);
-  }
+  const popupActive = page.querySelector('.popup_active');
+  if (e.key === 'Escape') {
+    closePopup(popupActive);
+  };
 };
 
 const openEditPopup = () => {
