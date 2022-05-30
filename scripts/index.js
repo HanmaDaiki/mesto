@@ -84,6 +84,8 @@ const saveEditPopup = (e) => {
 };
 
 const openAddCardPopup = () => {
+  popupAddCardInputNameCard.value = "";
+  popupAddCardInputLinkCard.value = "";
   openPopup(popupAddCard);
 };
 
