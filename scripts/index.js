@@ -1,5 +1,5 @@
 import { initialCards, Card } from "./Card.js";
-import { FormValidator, validate } from "./FormValidator.js";
+import { FormValidator, validate, disabledButton } from "./FormValidator.js";
 
 const page = document.querySelector(".page");
 const blockCards = page.querySelector(".cards");
@@ -31,6 +31,7 @@ const popupAddCardInputLinkCard = popupAddCard.querySelector(
   ".popup__input_type_link-card"
 );
 const buttonCloseAddCardPopup = popupAddCard.querySelector(".popup__close");
+const buttonSaveAddCardPopup = popupAddCard.querySelector('.popup__save');
 
 const popupImage = page.querySelector(".popup_image");
 const popupImageOverlay = popupImage.querySelector(".popup__overlay");
@@ -84,8 +85,9 @@ const saveEditPopup = (e) => {
 };
 
 const openAddCardPopup = () => {
-  popupAddCardInputNameCard.value = "";
-  popupAddCardInputLinkCard.value = "";
+  disabledButton(buttonSaveAddCardPopup);
+  popupAddCardInputNameCard.value = '';
+  popupAddCardInputLinkCard.value = '';
   openPopup(popupAddCard);
 };
 

@@ -69,4 +69,9 @@ class FormValidator {
   }
 }
 
-export {FormValidator, validate};
+const disabledButton = (button) => {
+  button.disabled = true;
+  button.classList.add('popup__save_inactive');
+} 
+
+export {FormValidator, validate, disabledButton};
