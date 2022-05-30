@@ -38,6 +38,17 @@ const popupImageImage = popupImage.querySelector(".popup__image");
 const popupImageTitle = popupImage.querySelector(".popup__image-title");
 const buttonCloseImagePopup = popupImage.querySelector(".popup__close");
 
+const createCard = (title, link) => {
+  return new Card(
+    {
+      title: title,
+      link: link,
+      openImageFunction: openImagePopup,
+    },
+    cardTemplate
+  );
+};
+
 const openPopup = (popup) => {
   popup.classList.add("popup_active");
   document.addEventListener("keydown", closePopupEsc);
@@ -49,8 +60,8 @@ const closePopup = (popup) => {
 };
 
 const closePopupEsc = (e) => {
-  const popupActive = page.querySelector(".popup_active");
   if (e.key === "Escape") {
+    const popupActive = page.querySelector(".popup_active");
     closePopup(popupActive);
   }
 };
@@ -82,25 +93,21 @@ const closeAddCardPopup = () => {
 
 const saveAddCardPopup = (e) => {
   e.preventDefault();
-  const card = new Card(
-    {
-      title: popupAddCardInputNameCard.value,
-      link: popupAddCardInputLinkCard.value,
-      openImageFunction: openImagePopup,
-    },
-    cardTemplate
+  const card = createCard(
+    popupAddCardInputNameCard.value,
+    popupAddCardInputLinkCard.value
   );
   blockCards.prepend(card.generate());
   closeAddCardPopup();
 };
 
 const openImagePopup = (title, link) => {
-  openPopup(popupImage);
-
   popupImageImage.src = link;
   popupImageImage.alt = `Фото сделанное в ${title}`;
 
   popupImageTitle.textContent = title;
+
+  openPopup(popupImage);
 };
 
 const closeImagePopup = () => {
@@ -109,14 +116,7 @@ const closeImagePopup = () => {
 
 const renderCards = (array) => {
   array.forEach((element) => {
-    const card = new Card(
-      {
-        title: element.name,
-        link: element.link,
-        openImageFunction: openImagePopup,
-      },
-      cardTemplate
-    );
+    const card = createCard(element.name, element.link);
     blockCards.append(card.generate());
   });
 };
