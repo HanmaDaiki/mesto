@@ -1,12 +1,4 @@
-const validate = {
-  popupForm: '.popup__form',
-  popupInputs: '.popup__input',
-  popupButtonSave: '.popup__save',
-  popupButtonSaveInactive: 'popup__save_inactive',
-  popupInputError: 'popup__input_error',
-};
-
-class FormValidator {
+export default class FormValidator {
   constructor(data, formElement) {
     this._formElement = formElement;
     this._listInputs = Array.from(formElement.querySelectorAll(data.popupInputs));
@@ -68,10 +60,3 @@ class FormValidator {
     this._setEventListeners();
   }
 }
-
-const disabledButton = (button) => {
-  button.disabled = true;
-  button.classList.add('popup__save_inactive');
-} 
-
-export {FormValidator, validate, disabledButton};

@@ -1,7 +1,13 @@
-import { initialCards, Card } from "./Card.js";
-import { FormValidator, validate, disabledButton } from "./FormValidator.js";
+import Card  from "../scripts/Card.js";
+import FormValidator  from "../scripts/FormValidator.js";
+import './index.css';
+import avatar from '../image/avatar.jpg';
+import { initialCards } from '../scripts/data.js';
+import { validate } from '../scripts/constants.js';
+import { disabledButton } from '../scripts/utils.js';
 
 const page = document.querySelector(".page");
+const ava = page.querySelector(".profile__avatar");
 const blockCards = page.querySelector(".cards");
 const cardTemplate = page.querySelector("#card-template").content;
 
@@ -125,6 +131,7 @@ const renderCards = (array) => {
   });
 };
 
+ava.src = `${avatar}`;
 renderCards(initialCards);
 const validPopupEditForm = new FormValidator(validate, popupEditForm);
 validPopupEditForm.enableValidation();
