@@ -2,7 +2,7 @@ export default class Card {
   constructor(data, templateSelector) {
     this._title = data.title;
     this._imageLink = data.link;
-    this._openImageFunction = data.openImageFunction;
+    this._openImageFunction = data.handleCardClick;
     this._cardElement = templateSelector
       .querySelector(".card")
       .cloneNode(true);
@@ -23,8 +23,9 @@ export default class Card {
   generate() {
     this._imageCard.src = this._imageLink;
     this._imageCard.alt = `Фото сделанное в ${this._title}`;
-    this._imageCard.addEventListener("click", () =>
-      this._openImageFunction(this._title, this._imageLink)
+    this._imageCard.addEventListener("click", () => {
+          this._openImageFunction(this._title, this._imageLink)
+        }
     );
     this._titleCard.textContent = this._title;
     this._buttonCardDelete.addEventListener("click", this._delete.bind(this));
