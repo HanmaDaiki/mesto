@@ -1,25 +1,22 @@
 import Card from "./Card";
 import PopupWithImage from "./PopupWithImage";
-import {popupImage, templateCard} from "./constants";
 
-const disabledButton = (button) => {
-  button.disabled = true;
-  button.classList.add('popup__save_inactive');
-}
+import { selectorPopupImage, templateCard } from "./constants";
 
-const createCard = () => {
+const popupImage = new PopupWithImage(selectorPopupImage);
+popupImage.setEventListeners();
+
+const createCard = (title, link) => {
   return new Card(
     {
-      title: item.name,
-      link: item.link,
-      handleCardClick: (title, link) => {
-        const popup = new PopupWithImage({title, link}, popupImage);
-        popup.open();
-        popup.setEventListeners();
+      title: title,
+      link: link,
+      handleCardClick: () => {
+        popupImage.open(title, link);
       },
     },
     templateCard
   );
 }
 
-export { disabledButton, createCard };
+export { createCard };
