@@ -13,7 +13,8 @@ export default class Card {
   }
 
   _delete() {
-    return this._cardElement.remove();
+    this._cardElement.remove();
+    this._cardElement = null;
   }
 
   _like() {
