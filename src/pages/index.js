@@ -1,7 +1,5 @@
-import Card  from "../scripts/Card.js";
 import FormValidator  from "../scripts/FormValidator.js";
 import Section from "../scripts/Section";
-import PopupWithImage from "../scripts/PopupWithImage";
 import PopupWithForm from "../scripts/PopupWithForm";
 import UserInfo from "../scripts/UserInfo";
 
@@ -9,52 +7,30 @@ import { initialCards } from '../scripts/data.js';
 import {
   validate, popupEditForm,
   popupAddCardForm, cardContainer,
-  templateCard, popupImage,
   descriptionProfile, nameInProfile,
   popupEdit, buttonOpenEdit,
   popupEditInputDescription, popupEditInputName,
-  popupAddCard, buttonOpenAddCard
+  popupAddCard, buttonOpenAddCard,
+  popupAddCardInputLinkCard, popupAddCardInputNameCard
 } from '../scripts/constants.js';
-import { disabledButton } from '../scripts/utils.js';
+import { createCard } from '../scripts/utils.js';
 
 import './index.css';
 
 const sectionCard = new Section({items: initialCards, renderer: (item) => {
-        const card = new Card(
-            {
-                title: item.name,
-                link: item.link,
-                handleCardClick: (title, link) => {
-                    const popup = new PopupWithImage({title, link}, popupImage);
-                    popup.open();
-                    popup.setEventListeners();
-                },
-            },
-            templateCard
-        );
+        const card = createCard(item.name, item.link);
         cardContainer.append(card.generate())
     }}, cardContainer)
 
 const userInfo = new UserInfo({profileName: nameInProfile,
   profileDescription: descriptionProfile})
 
-const popupEditProfile = new PopupWithForm((array)=>{
-  userInfo.setUserInfo({name: array[0], description: array[1]})
+const popupEditProfile = new PopupWithForm((obj)=>{
+  userInfo.setUserInfo({name: obj['edit-name'], description: obj['edit-discription']})
 }, popupEdit)
 
-const popupAdd = new PopupWithForm((array) => {
-  const card = new Card(
-    {
-      title: array[0],
-      link: array[1],
-      handleCardClick: (title, link) => {
-        const popup = new PopupWithImage({title, link}, popupImage);
-        popup.open();
-        popup.setEventListeners();
-      },
-    },
-    templateCard
-  );
+const popupAdd = new PopupWithForm((obj) => {
+  const card = createCard(obj['card-name'], obj['card-link']);
 
   sectionCard.addItem(card.generate());
 }, popupAddCard)
@@ -68,6 +44,8 @@ const validPopupAddCardForm = new FormValidator(validate, popupAddCardForm);
 validPopupAddCardForm.enableValidation();
 
 buttonOpenAddCard.addEventListener('click', () => {
+  popupAddCardInputLinkCard.value = '';
+  popupAddCardInputNameCard.value = '';
   popupAdd.setEventListeners();
   popupAdd.open();
 })
