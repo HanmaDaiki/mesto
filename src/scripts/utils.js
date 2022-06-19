@@ -17,6 +17,11 @@ const createCard = (title, link) => {
     },
     templateCard
   );
+};
+
+const disabledButton = (button) => {
+  button.disabled = true;
+  button.classList.add('popup__save_inactive');
 }
 
-export { createCard };
+export { createCard, disabledButton };

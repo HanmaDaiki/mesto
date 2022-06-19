@@ -11,9 +11,10 @@ import {
   popupEdit, buttonOpenEdit,
   popupEditInputDescription, popupEditInputName,
   popupAddCard, buttonOpenAddCard,
-  popupAddCardInputLinkCard, popupAddCardInputNameCard
+  popupAddCardInputLinkCard, popupAddCardInputNameCard,
+  buttonSaveAddCard
 } from '../scripts/constants.js';
-import { createCard } from '../scripts/utils.js';
+import { createCard, disabledButton } from '../scripts/utils.js';
 
 import './index.css';
 
@@ -21,6 +22,7 @@ const sectionCard = new Section({items: initialCards, renderer: (item) => {
         const card = createCard(item.name, item.link);
         cardContainer.append(card.generate())
     }}, cardContainer)
+sectionCard.renderItems();
 
 const userInfo = new UserInfo({profileName: nameInProfile,
   profileDescription: descriptionProfile})
@@ -28,14 +30,14 @@ const userInfo = new UserInfo({profileName: nameInProfile,
 const popupEditProfile = new PopupWithForm((obj)=>{
   userInfo.setUserInfo({name: obj['edit-name'], description: obj['edit-discription']})
 }, popupEdit)
+popupEditProfile.setEventListeners();
 
 const popupAdd = new PopupWithForm((obj) => {
   const card = createCard(obj['card-name'], obj['card-link']);
 
   sectionCard.addItem(card.generate());
 }, popupAddCard)
-
-sectionCard.renderItems();
+popupAdd.setEventListeners();
 
 const validPopupEditForm = new FormValidator(validate, popupEditForm);
 validPopupEditForm.enableValidation();
@@ -46,7 +48,7 @@ validPopupAddCardForm.enableValidation();
 buttonOpenAddCard.addEventListener('click', () => {
   popupAddCardInputLinkCard.value = '';
   popupAddCardInputNameCard.value = '';
-  popupAdd.setEventListeners();
+  disabledButton(buttonSaveAddCard);
   popupAdd.open();
 })
 
@@ -54,6 +56,5 @@ buttonOpenEdit.addEventListener('click', () => {
   const currentInfoUser = userInfo.getUserInfo();
   popupEditInputName.value = currentInfoUser.name;
   popupEditInputDescription.value = currentInfoUser.description;
-  popupEditProfile.setEventListeners();
   popupEditProfile.open();
 });
