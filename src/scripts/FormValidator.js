@@ -52,6 +52,11 @@ export default class FormValidator {
     }
   }
 
+  disabledButton() {
+    this._buttonSave.disabled = true;
+    this._buttonSave.classList.add('popup__save_inactive');
+  }
+
   enableValidation() {
     this._formElement.addEventListener('submit', function (evt) {
       evt.preventDefault();

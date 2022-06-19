@@ -11,10 +11,9 @@ import {
   popupEdit, buttonOpenEdit,
   popupEditInputDescription, popupEditInputName,
   popupAddCard, buttonOpenAddCard,
-  popupAddCardInputLinkCard, popupAddCardInputNameCard,
-  buttonSaveAddCard
+  popupAddCardInputLinkCard, popupAddCardInputNameCard
 } from '../scripts/constants.js';
-import { createCard, disabledButton } from '../scripts/utils.js';
+import { createCard } from '../scripts/utils.js';
 
 import './index.css';
 
@@ -48,7 +47,7 @@ validPopupAddCardForm.enableValidation();
 buttonOpenAddCard.addEventListener('click', () => {
   popupAddCardInputLinkCard.value = '';
   popupAddCardInputNameCard.value = '';
-  disabledButton(buttonSaveAddCard);
+  validPopupAddCardForm.disabledButton();
   popupAdd.open();
 })
 

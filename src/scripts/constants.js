@@ -27,7 +27,6 @@ const popupAddCardInputNameCard = popupAddCard.querySelector(
 const popupAddCardInputLinkCard = popupAddCard.querySelector(
   ".popup__input_type_link-card"
 );
-const buttonSaveAddCard = popupAddCard.querySelector('.popup__save')
 
 const selectorPopupImage = document.querySelector('.popup_image')
 
@@ -43,4 +42,4 @@ export { validate, popupEditForm,
   buttonOpenEdit, popupEditInputName,
   popupEditInputDescription, buttonOpenAddCard,
   popupAddCardInputNameCard, popupAddCardInputLinkCard,
-  buttonSaveAddCard};
+};
