@@ -18,6 +18,12 @@ const popupEditInputDescription = popupEditForm.querySelector(
   ".popup__input_type_discription"
 );
 
+const popupDeleteCard = document.querySelector('.popup_delete-card')
+
+const popupEditAvatar = document.querySelector('.popup_edit-avatar')
+const avatar = document.querySelector('.avatar');
+const buttonOpenEditAvatar = document.querySelector('.edit-avatar')
+
 const popupAddCard = document.querySelector('.popup_add-card');
 const popupAddCardForm = popupAddCard.querySelector('.popup__form');
 const buttonOpenAddCard = document.querySelector('.profile__add');
@@ -42,4 +48,6 @@ export { validate, popupEditForm,
   buttonOpenEdit, popupEditInputName,
   popupEditInputDescription, buttonOpenAddCard,
   popupAddCardInputNameCard, popupAddCardInputLinkCard,
+  popupEditAvatar, avatar,
+  popupDeleteCard, buttonOpenEditAvatar
 };
