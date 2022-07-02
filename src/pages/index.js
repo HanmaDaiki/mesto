@@ -46,8 +46,8 @@ const userInfo = new UserInfo({
 
 const sectionCard = new Section((card, userId, addMethod) => {
   const instanceCard = createCard(card, api, popupDelete, popupImage, userId);
-  addMethod(instanceCard.generate(), cardContainer);
-});
+  addMethod(instanceCard.generate());
+},  cardContainer);
 
 const popupImage = new PopupWithImage(selectorPopupImage);
 popupImage.setEventListeners();
@@ -55,14 +55,14 @@ popupImage.setEventListeners();
 const popupAdd = new PopupWithForm((obj, close) => {
   api
     .addNewCard({ name: obj["card-name"], link: obj["card-link"] })
-    .catch((err) => {
-      console.log(`Ошибка ${err}`);
-    })
     .then((card) => {
       api.getUserInfo().then((user) => {
         sectionCard.renderNewItem(card, user._id);
       });
       close();
+    })
+    .catch((err) => {
+      console.log(err);
     });
 }, popupAddCard);
 popupAdd.setEventListeners();
@@ -70,13 +70,13 @@ popupAdd.setEventListeners();
 const popupDelete = new PopupConfirmDelete((id, card, close) => {
   api
     .deleteCard(id)
-    .catch((err) => {
-      console.log(`Ошибка ${err}`);
-    })
-    .finally(() => {
+    .then(() => {
       card.remove();
       card = null;
       close();
+    })
+    .catch((err) => {
+      console.log(err);
     });
 }, popupDeleteCard);
 popupDelete.setEventListeners();
@@ -84,15 +84,15 @@ popupDelete.setEventListeners();
 const popupEditProfile = new PopupWithForm((obj, close) => {
   api
     .editInfoUser({ name: obj["edit-name"], about: obj["edit-discription"] })
-    .catch((err) => {
-      console.log(`Ошибка ${err}`);
-    })
-    .finally(() => {
+    .then(() => {
       userInfo.setUserInfo({
         name: obj["edit-name"],
         description: obj["edit-discription"],
       });
       close();
+    })
+    .catch((err) => {
+      console.log(err);
     });
 }, popupEdit);
 popupEditProfile.setEventListeners();
@@ -100,12 +100,12 @@ popupEditProfile.setEventListeners();
 const popupEditAvatarForm = new PopupWithForm((obj, close) => {
   api
     .patchAvatar({ avatar: obj["avatar-link"] })
-    .catch((err) => {
-      console.log(`Ошибка ${err}`);
-    })
-    .finally(() => {
+    .then(() => {
       userInfo.setAvatar(obj["avatar-link"]);
       close();
+    })
+    .catch((err) => {
+      console.log(err);
     });
 }, popupEditAvatar);
 popupEditAvatarForm.setEventListeners();
@@ -117,11 +117,8 @@ Promise.all([api.getUserInfo(), api.getCards()])
     sectionCard.renderItems(cards, user._id);
   })
   .catch((err) => {
-    console.log(`Ошибка ${err}`);
+    console.log(err);
   });
-
-const validPopupDeleteCard = new FormValidator(validate, popupDeleteCard);
-validPopupDeleteCard.enableValidation();
 
 const validPopupEditForm = new FormValidator(validate, popupEditForm);
 validPopupEditForm.enableValidation();

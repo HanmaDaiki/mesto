@@ -19,30 +19,36 @@ export default class Card {
     );
   }
 
+  _isLiked() {
+    return this._card.likes.some((like) => {
+      return like._id === this._userId;
+    });
+  }
+
   _setEventListner() {
     this._buttonCardLike.addEventListener("click", () => {
-      if (this._card.likes.length === 0) {
-        this._api.putLike(this._idCard).then((card) => {
-          this._card = card;
-          this._buttonCardLike.classList.add("card__like-button_active");
-          this._cardCounterLike.textContent = card.likes.length;
-        });
+      if (!this._isLiked()) {
+        this._api
+          .putLike(this._idCard)
+          .then((card) => {
+            this._card = card;
+            this._buttonCardLike.classList.add("card__like-button_active");
+            this._cardCounterLike.textContent = card.likes.length;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       } else {
-        this._card.likes.forEach((like) => {
-          if (like._id !== this._userId) {
-            this._api.putLike(this._idCard).then((card) => {
-              this._card = card;
-              this._buttonCardLike.classList.add("card__like-button_active");
-              this._cardCounterLike.textContent = card.likes.length;
-            });
-          } else if (like._id === this._userId) {
-            this._api.deleteLike(this._idCard).then((card) => {
-              this._card = card;
-              this._buttonCardLike.classList.remove("card__like-button_active");
-              this._cardCounterLike.textContent = card.likes.length;
-            });
-          }
-        });
+        this._api
+          .deleteLike(this._idCard)
+          .then((card) => {
+            this._card = card;
+            this._buttonCardLike.classList.remove("card__like-button_active");
+            this._cardCounterLike.textContent = card.likes.length;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     });
 
@@ -56,13 +62,11 @@ export default class Card {
   }
 
   generate() {
-    this._card.likes.forEach((like) => {
-      if (like._id === this._userId) {
-        this._buttonCardLike.classList.add("card__like-button_active");
-      } else {
-        this._buttonCardLike.classList.remove("card__like-button_active");
-      }
-    });
+    if (this._isLiked()) {
+      this._buttonCardLike.classList.add("card__like-button_active");
+    } else {
+      this._buttonCardLike.classList.remove("card__like-button_active");
+    }
 
     if (this._card.owner._id !== this._userId) {
       this._buttonCardDelete.remove();

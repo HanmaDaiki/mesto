@@ -5,7 +5,7 @@ export default class FormValidator {
       formElement.querySelectorAll(data.popupInputs)
     );
     this._buttonSave = formElement.querySelector(data.popupButtonSave);
-    this._popupInputError = formElement.querySelector(data.popupInputError);
+    this._popupInputError = data.popupInputError;
     this._buttonSaveInactive = data.popupButtonSaveInactive;
   }
 
