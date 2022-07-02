@@ -1,69 +1,124 @@
-import FormValidator  from "../scripts/FormValidator";
-import Section from "../scripts/Section";
-import PopupWithForm from "../scripts/PopupWithForm";
-import UserInfo from "../scripts/UserInfo";
-import Api from "../scripts/Api";
-import PopupConfirmDelete from "../scripts/PopupConfirmDelete";
+import FormValidator from "../scripts/components/FormValidator";
+import Section from "../scripts/components/Section";
+import UserInfo from "../scripts/components/UserInfo";
+import Api from "../scripts/components/Api";
+import Card from "../scripts/components/Card";
+import PopupWithForm from "../scripts/components/PopupWithForm";
+import PopupConfirmDelete from "../scripts/components/PopupConfirmDelete";
+import PopupWithImage from "../scripts/components/PopupWithImage";
 
 import {
-  validate, popupEditForm,
-  popupAddCardForm, cardContainer,
-  descriptionProfile, nameInProfile,
-  popupEdit, buttonOpenEdit,
-  popupEditInputDescription, popupEditInputName,
-  popupAddCard, buttonOpenAddCard,
-  popupAddCardInputLinkCard, popupAddCardInputNameCard,
-  popupEditAvatar, avatar,
-  popupDeleteCard, buttonOpenEditAvatar
-} from '../scripts/constants.js';
-import { createCard } from '../scripts/utils.js';
+  validate,
+  popupEditForm,
+  popupAddCardForm,
+  cardContainer,
+  descriptionProfile,
+  nameInProfile,
+  popupEdit,
+  buttonOpenEdit,
+  popupEditInputDescription,
+  popupEditInputName,
+  popupAddCard,
+  buttonOpenAddCard,
+  popupEditAvatar,
+  avatar,
+  popupDeleteCard,
+  buttonOpenEditAvatar,
+  selectorPopupImage,
+  templateCard,
+} from "../scripts/utils/constants.js";
 
-import './index.css';
+import "./index.css";
 
-const userInfo = new UserInfo({profileName: nameInProfile,
-  profileDescription: descriptionProfile, avatar: avatar})
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-44",
+  headers: {
+    authorization: "9a69bfa9-7946-4a31-aa6c-90b45ffaa893",
+    "Content-Type": "application/json",
+  },
+});
 
-const popupEditProfile = new PopupWithForm((obj)=>{
-  api.editInfoUser({name: obj['edit-name'], about: obj['edit-discription']});
-  userInfo.setUserInfo({name: obj['edit-name'], description: obj['edit-discription']});
-}, popupEdit)
-popupEditProfile.setEventListeners();
+const userInfo = new UserInfo({
+  profileName: nameInProfile,
+  profileDescription: descriptionProfile,
+  avatar: avatar,
+});
 
-const popupDelete = new PopupConfirmDelete((id) => {
-  api.deleteCard(id);
-  updateSectionCard();
+const sectionCard = new Section((card, userId, addMethod) => {
+  const instanceCard = createCard(card, api, popupDelete, popupImage, userId);
+  addMethod(instanceCard.generate(), cardContainer);
+});
+
+const popupImage = new PopupWithImage(selectorPopupImage);
+popupImage.setEventListeners();
+
+const popupAdd = new PopupWithForm((obj, close) => {
+  api
+    .addNewCard({ name: obj["card-name"], link: obj["card-link"] })
+    .catch((err) => {
+      console.log(`Ошибка ${err}`);
+    })
+    .then((card) => {
+      api.getUserInfo().then((user) => {
+        sectionCard.renderNewItem(card, user._id);
+      });
+      close();
+    });
+}, popupAddCard);
+popupAdd.setEventListeners();
+
+const popupDelete = new PopupConfirmDelete((id, card, close) => {
+  api
+    .deleteCard(id)
+    .catch((err) => {
+      console.log(`Ошибка ${err}`);
+    })
+    .finally(() => {
+      card.remove();
+      card = null;
+      close();
+    });
 }, popupDeleteCard);
 popupDelete.setEventListeners();
 
-const popupEditAvatarForm = new PopupWithForm((obj)=>{
-  api.patchAvatar({avatar: obj['avatar-link']});
-  userInfo.setAvatar(obj['avatar-link']);
-}, popupEditAvatar)
+const popupEditProfile = new PopupWithForm((obj, close) => {
+  api
+    .editInfoUser({ name: obj["edit-name"], about: obj["edit-discription"] })
+    .catch((err) => {
+      console.log(`Ошибка ${err}`);
+    })
+    .finally(() => {
+      userInfo.setUserInfo({
+        name: obj["edit-name"],
+        description: obj["edit-discription"],
+      });
+      close();
+    });
+}, popupEdit);
+popupEditProfile.setEventListeners();
+
+const popupEditAvatarForm = new PopupWithForm((obj, close) => {
+  api
+    .patchAvatar({ avatar: obj["avatar-link"] })
+    .catch((err) => {
+      console.log(`Ошибка ${err}`);
+    })
+    .finally(() => {
+      userInfo.setAvatar(obj["avatar-link"]);
+      close();
+    });
+}, popupEditAvatar);
 popupEditAvatarForm.setEventListeners();
 
-const updateSectionCard = () => {
-  cardContainer.innerHTML = '';
-  api.getUserInfo().then(user => {
-    api.getCards().then(cards => {
-      const sectionCard = new Section({items: cards, renderer: (card) => {
-          const instanceCard = createCard(
-            user._id,
-            card,
-            api,
-            popupDelete
-          );
-          sectionCard.addItem(instanceCard.generate());
-        }}, cardContainer);
-      sectionCard.renderItems();
-    })
+Promise.all([api.getUserInfo(), api.getCards()])
+  .then(([user, cards]) => {
+    userInfo.setUserInfo({ name: user.name, description: user.about });
+    userInfo.setAvatar(user.avatar);
+    sectionCard.renderItems(cards, user._id);
   })
-}
-
-const popupAdd = new PopupWithForm((obj) => {
-  api.addNewCard({name: obj['card-name'], link: obj['card-link']});
-  updateSectionCard();
-}, popupAddCard)
-popupAdd.setEventListeners();
+  .catch((err) => {
+    console.log(`Ошибка ${err}`);
+  });
 
 const validPopupDeleteCard = new FormValidator(validate, popupDeleteCard);
 validPopupDeleteCard.enableValidation();
@@ -77,45 +132,36 @@ validPopupAddCardForm.enableValidation();
 const validPopupEditAvatarForm = new FormValidator(validate, popupEditAvatar);
 validPopupEditAvatarForm.enableValidation();
 
-buttonOpenEditAvatar.addEventListener('click', () => {
+buttonOpenEditAvatar.addEventListener("click", () => {
+  validPopupEditAvatarForm.disabledButton();
   popupEditAvatarForm.open();
-})
+});
 
-buttonOpenAddCard.addEventListener('click', () => {
-  popupAddCardInputLinkCard.value = '';
-  popupAddCardInputNameCard.value = '';
+buttonOpenAddCard.addEventListener("click", () => {
   validPopupAddCardForm.disabledButton();
   popupAdd.open();
-})
+});
 
-buttonOpenEdit.addEventListener('click', () => {
+buttonOpenEdit.addEventListener("click", () => {
   const currentInfoUser = userInfo.getUserInfo();
   popupEditInputName.value = currentInfoUser.name;
   popupEditInputDescription.value = currentInfoUser.description;
   popupEditProfile.open();
 });
 
-const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-44',
-  headers: {
-    authorization: '9a69bfa9-7946-4a31-aa6c-90b45ffaa893',
-    'Content-Type': 'application/json'
-  },
-});
-
-api.getUserInfo().then(user => {
-  userInfo.setUserInfo({name: user.name, description: user.about});
-  userInfo.setAvatar(user.avatar);
-  api.getCards().then(cards => {
-    const sectionCard = new Section({items: cards, renderer: (card) => {
-        const instanceCard = createCard(
-          user._id,
-          card,
-          api,
-          popupDelete
-        );
-        sectionCard.addItem(instanceCard.generate());
-      }}, cardContainer);
-    sectionCard.renderItems();
-  })
-})
+const createCard = (card, api, instancePopupDeleteCard, instancePopupImage, userId) => {
+  return new Card(
+    {
+      instancePopupImage: instancePopupImage,
+      instancePopupDeleteCard: instancePopupDeleteCard,
+      card: card,
+      title: card.name,
+      link: card.link,
+      idCard: card._id,
+      idOwner: card.owner._id,
+      api: api,
+      userId: userId,
+    },
+    templateCard
+  );
+};
