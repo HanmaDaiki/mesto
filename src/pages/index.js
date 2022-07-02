@@ -56,9 +56,7 @@ const popupAdd = new PopupWithForm((obj, close) => {
   api
     .addNewCard({ name: obj["card-name"], link: obj["card-link"] })
     .then((card) => {
-      api.getUserInfo().then((user) => {
-        sectionCard.renderNewItem(card, user._id);
-      });
+      sectionCard.renderNewItem(card, userInfo.returnUserId());
       close();
     })
     .catch((err) => {
@@ -112,6 +110,7 @@ popupEditAvatarForm.setEventListeners();
 
 Promise.all([api.getUserInfo(), api.getCards()])
   .then(([user, cards]) => {
+    userInfo.getUserId(user._id);
     userInfo.setUserInfo({ name: user.name, description: user.about });
     userInfo.setAvatar(user.avatar);
     sectionCard.renderItems(cards, user._id);
