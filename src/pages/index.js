@@ -56,7 +56,7 @@ const popupAdd = new PopupWithForm((obj, close) => {
   api
     .addNewCard({ name: obj["card-name"], link: obj["card-link"] })
     .then((card) => {
-      sectionCard.renderNewItem(card, userInfo.returnUserId());
+      sectionCard.renderNewItem(card, userInfo.getUserId());
       close();
     })
     .catch((err) => {
@@ -82,11 +82,8 @@ popupDelete.setEventListeners();
 const popupEditProfile = new PopupWithForm((obj, close) => {
   api
     .editInfoUser({ name: obj["edit-name"], about: obj["edit-discription"] })
-    .then(() => {
-      userInfo.setUserInfo({
-        name: obj["edit-name"],
-        description: obj["edit-discription"],
-      });
+    .then((res) => {
+      userInfo.setUserInfo(res);
       close();
     })
     .catch((err) => {
@@ -98,8 +95,8 @@ popupEditProfile.setEventListeners();
 const popupEditAvatarForm = new PopupWithForm((obj, close) => {
   api
     .patchAvatar({ avatar: obj["avatar-link"] })
-    .then(() => {
-      userInfo.setAvatar(obj["avatar-link"]);
+    .then((res) => {
+      userInfo.setUserInfo(res);
       close();
     })
     .catch((err) => {
@@ -110,9 +107,7 @@ popupEditAvatarForm.setEventListeners();
 
 Promise.all([api.getUserInfo(), api.getCards()])
   .then(([user, cards]) => {
-    userInfo.getUserId(user._id);
-    userInfo.setUserInfo({ name: user.name, description: user.about });
-    userInfo.setAvatar(user.avatar);
+    userInfo.setUserInfo(user);
     sectionCard.renderItems(cards, user._id);
   })
   .catch((err) => {

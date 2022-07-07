@@ -5,11 +5,14 @@ export default class UserInfo {
     this._avatar = avatar;
   }
 
-  getUserId(id){
-    this._userId = id;
+  setUserInfo({ name, about, avatar, _id }) {
+    this._profileName.textContent = name;
+    this._profileDescription.textContent = about;
+    this._avatar.src = avatar;
+    this._userId = _id;
   }
 
-  returnUserId() {
+  getUserId() {
     return this._userId;
   }
 
@@ -18,14 +21,5 @@ export default class UserInfo {
       name: this._profileName.textContent,
       description: this._profileDescription.textContent,
     };
-  }
-
-  setUserInfo({ name, description }) {
-    this._profileName.textContent = name;
-    this._profileDescription.textContent = description;
-  }
-
-  setAvatar(link) {
-    this._avatar.src = `${link}`;
   }
 }
